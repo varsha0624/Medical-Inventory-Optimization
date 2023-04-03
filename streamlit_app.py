@@ -1,5 +1,3 @@
-# Running
-python -m streamlit run your_script.py
 import pandas as pd
 import streamlit as st
 import numpy as np
