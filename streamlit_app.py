@@ -6,7 +6,7 @@ from datetime import datetime
 
 
 # Load the model
-model = pickle.load(open(r"E:\Project\forecast_model_double_exp.pickle",'rb'))
+model = pickle.load(open(r"E:\Project\forecast_model_double_exp.pickle",'wb'))
 
 #load dataset to plot alongside predictions
 df = pd.read_csv(r"E:\Project\DayForecast.csv")
@@ -15,7 +15,7 @@ df.set_index(['Date'], inplace=True)
 
 #page configuration
 st.set_page_config(layout='centered')
-image = Image.open('E:/LiveProject/Medical_drug_forecast/Model_Deployment/download.jpg')
+image = Image.open(r"F:\Model Depolyment\drug _image.jpg")
 st.image(image)
 
 date = st.slider("Select number of dates",1,30,step = 1)
