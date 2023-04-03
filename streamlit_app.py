@@ -8,11 +8,7 @@ from datetime import datetime
 try:
     with open(r"C:\Users\Varsh\model.pickle", 'rb') as f:
         model = pickle.load(f)
-    return 1    
-
-    except:
-
-        return 0
+ 
 # Define a function to take user input and make prediction
 def predict_quantity(date):
     # Convert date string to datetime object
