@@ -6,7 +6,7 @@ from datetime import datetime
 
 # Load the model
 try:
-    with open(r"C:\Users\Varsh\model.pickle", 'rb') as f:
+    with open("C:\Users\Varsh\model.pickle", 'rb') as f:
         model = pickle.load(f)
 except FileNotFoundError:
     st.error('Model file not found. Please run the training script first.')
