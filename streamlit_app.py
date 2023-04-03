@@ -1,2 +1,2 @@
 # pip install streamlit
-$ streamlit hello
+streamlit hello
