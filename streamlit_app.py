@@ -8,7 +8,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 #load the model
-model = pickle.load(open("C:\Users\Varsh\forecast_model_double_exp.pickle"))
+model = pickle.load(open(r"C:\Users\Varsh\forecast_model_double_exp.pickle","rb"))
 
 #load dataset to plot alongside predictions
 df = pd.read_csv("E:\Project\DayForecast.csv".csv")
