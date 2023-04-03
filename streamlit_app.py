@@ -8,9 +8,6 @@ from datetime import datetime
 try:
     with open(r"C:\Users\Varsh\model.pickle", 'rb') as f:
         model = pickle.load(f)
-except FileNotFoundError:
-    st.error('Model file not found. Please run the training script first.')
-    st.stop()
 
 # Define a function to take user input and make prediction
 def predict_quantity(date):
