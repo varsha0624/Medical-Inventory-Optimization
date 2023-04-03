@@ -11,7 +11,7 @@ try:
  
 
 # Define a function to take user input and make prediction
-def predict_quantity(date):
+defpredict_quantity(date):
     # Convert date string to datetime object
     date = datetime.strptime(date, '%Y-%m-%d')
     # Create a pandas Timestamp object
