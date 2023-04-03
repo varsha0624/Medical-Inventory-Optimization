@@ -1,4 +1,4 @@
-$ pip intsall streamlit
+pip intsall streamlit
 
 import pandas as pd
 import streamlit as st
