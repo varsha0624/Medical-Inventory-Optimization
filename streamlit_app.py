@@ -11,7 +11,7 @@ warnings.filterwarnings("ignore")
 model = pickle.load(open(r"C:\Users\Varsh\forecast_model_double_exp.pickle","rb"))
 
 #load dataset to plot alongside predictions
-df = pd.read_csv("E:\Project\DayForecast.csv".csv")
+df = pd.read_csv("E:\Project\DayForecast.csv")
 df['Date'] = pd.to_datetime(df['Date'])
 df.set_index(['Date'], inplace=True)
 
