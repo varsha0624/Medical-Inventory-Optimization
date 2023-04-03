@@ -5,7 +5,7 @@ import pickle
 from datetime import datetime
 
 # Load the model
-with open(r"C:\Users\Varsh\model.pickle", 'rb') as f:
+with open(r"C:\Users\Varsh\model.pickle", 'wb') as f:
     model = pickle.load(f)
  
 
