@@ -5,9 +5,7 @@ import pickle
 from datetime import datetime
 
 # Load the model
-with open(r"C:\Users\Varsh\model.pickle", 'wb') as f:
-    model = pickle.load(f)
- 
+model = pickle.load(open(r"C:\Users\Varsh\model.pickle", 'rb'))
 
 # Define a function to take user input and make prediction
 def predict_quantity(date):
