@@ -1,37 +1,39 @@
-import pickle
-import streamlit as st
 import pandas as pd
+import streamlit as st
 import numpy as np
-from PIL import Image
-import warnings
-warnings.filterwarnings("ignore")
+import pickle
+from datetime import datetime
 
-#load the model
-model = pickle.load(open(r"C:\Users\Varsh\forecast_model_double_exp.pickle","rb"))
+# Load the model
+with open(r"C:\Users\Varsh\model.pickle", 'rb') as f:
+    model = pickle.load(f)
 
-#load dataset to plot alongside predictions
-df = pd.read_csv("E:\Project\DayForecast.csv")
-df['Date'] = pd.to_datetime(df['Date'])
-df.set_index(['Date'], inplace=True)
 
-#page configuration
-st.set_page_config(layout='centered')
-image = Image.open("F:\Model Depolyment\drug _image.jpg")
-st.image(image)
+# Define a function to take user input and make prediction
+def predict_quantity(date):
+    # Convert date string to datetime object
+    date = datetime.strptime(date, '%Y-%m-%d')
+    # Create a pandas Timestamp object
+    date = pd.Timestamp(date)
+    # Make a prediction using the loaded model
+    prediction = model.predict(start=date, end=date)[0]
+    return prediction
 
-date = st.slider("Select number of dates",1,30,step = 1)
-    
-    
-pred = model.forecast(date)
-pred = pd.DataFrame(pred, columns=['Quantity'])
-   
-if st.button("Predict"):
+# Create a Streamlit app
+st.set_page_config(page_title='Medicine Demand Forecasting App', page_icon=':pill:', layout='wide', initial_sidebar_state='collapsed')
+st.title('Medicine Demand Forecasting App')
 
-        col1, col2 = st.columns([2,3])
-        with col1:
-             st.dataframe(pred)
-        with col2:
-            fig, ax = plt.subplots()
-            df['Quantity'].plot(style='--', color='gray', legend=True, label='known')
-            pred['Quantity'].plot(color='b', legend=True, label='prediction')
-            st.pyplot(fig)
+# Add a date input widget
+date = st.date_input('Enter a date')
+
+# Make a prediction when the user clicks the "Predict" button
+if st.button('Predict'):
+    prediction = predict_quantity(str(date))
+    st.success(f'The predicted quantity for {date} is {prediction}.')
+    # Add a chart with the predicted quantity
+    dates = pd.date_range(start=date, end=date)
+    quantities = [prediction]
+    df = pd.DataFrame({'Quantity': quantities}, index=dates)
+    st.line_chart(df, use_container_width=True)
+else:
+    st.info('Click the "Predict" button to make a prediction.')
