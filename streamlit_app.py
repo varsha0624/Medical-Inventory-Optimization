@@ -6,23 +6,31 @@ from datetime import datetime
 
 
 # Load the model
-try:
-    with open(r"E:\Project\forecast_model_double_exp.pickle", 'rb') as f:
-        model = pickle.load(f)
-except FileNotFoundError:
-    st.error('Model file not found. Please run the training script first.')
-    st.stop()
+model = pickle.load(open(r"E:\Project\forecast_model_double_exp.pickle",'rb'))
 
-# Define a function to take user input and make prediction
-def predict_quantity(date):
-    # Convert date string to datetime object
-    date = datetime.strptime(date, '%Y-%m-%d')
-    # Create a pandas Timestamp object
-    date = pd.Timestamp(date)
-    # Make a prediction using the loaded model
-    prediction = model.predict(start=date, end=date)[0]
-    return prediction
+#load dataset to plot alongside predictions
+df = pd.read_csv(r"E:\Project\DayForecast.csv")
+df['Date'] = pd.to_datetime(df['Date'])
+df.set_index(['Date'], inplace=True)
 
-# Create a Streamlit app
-st.set_page_config(page_title='Medicine Demand Forecasting App', page_icon=':pill:', layout='wide', initial_sidebar_state='collapsed')
-st.title('Medicine Demand Forecasting App')
+#page configuration
+st.set_page_config(layout='centered')
+image = Image.open('E:/LiveProject/Medical_drug_forecast/Model_Deployment/download.jpg')
+st.image(image)
+
+date = st.slider("Select number of dates",1,30,step = 1)
+    
+    
+pred = model.forecast(date)
+pred = pd.DataFrame(pred, columns=['Quantity'])
+   
+if st.button("Predict"):
+
+        col1, col2 = st.columns([2,3])
+        with col1:
+             st.dataframe(pred)
+        with col2:
+            fig, ax = plt.subplots()
+            df['Quantity'].plot(style='--', color='gray', legend=True, label='known')
+            pred['Quantity'].plot(color='b', legend=True, label='prediction')
+            st.pyplot(fig)
